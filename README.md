@@ -1,5 +1,3 @@
 
-Html_projects repository with two branches and one collaborator
-
-I made a PR for the collaborator to merge
+Html_projects repository with two branches and an invite you creates a PR and merge it
 
