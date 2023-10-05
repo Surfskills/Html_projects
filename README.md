@@ -1,5 +1,3 @@
-Html_projects repository with two branches and one collaborator
 
-Five commits; login_form, registration_form, home_page, social_media, contacts_form
+Html_projects repository with two branches and an invite you creates a PR and merge it
 
-PR for the person to merge
