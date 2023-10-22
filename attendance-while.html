@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EIT Class Attendance Status</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .button-container {
+            display: flex;
+        }
+
+        .approve-button, .decline-button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50; /* Green for Approve */
+            color: white;
+            cursor: pointer;
+        }
+
+        .decline-button {
+            background-color: #f44336; /* Red for Decline */
+        }
+    </style>
+</head>
+<body>
+    <h1>Class Attendance</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Query</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="classList">
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+    <script lang="JavaScript">
+        // Sample data with initial attendance status
+        const queries = [
+          { id: 1, student: "Genesis", query: "Permission to absent from tech class", status: "APPROVED" },
+          { id: 2, student: "Nunya", query: "Permission to Absa Hackathon", status: "APPROVED" },
+          { id: 3, student: "Fleeur", query: "Permission to shoot film", status: "DECLINED" },
+          { id: 4, student: "Delight", query: "Need some delightful time to cool off", status: "DECLINED" },
+          { id: 5, student: "Sila", query: "Permission to participate in Absa Hackathon", status: "PENDING" },
+        ];
+
+        // Function to edit the attendance status
+        function eitClassAttendanceStatus(studentId, newStatus) {
+          for (let i = 0; i < queries.length; i++) {
+            if (queries[i].id === studentId) {
+              queries[i].status = newStatus;
+              break; // Assuming student IDs are unique; no need to continue searching
+            }
+          }
+        }
+
+        // Populate the table with class attendance data using a while loop
+        function populateClassList() {
+          const classListBody = document.getElementById("classList");
+
+          // Clear the table body before populating it
+          classListBody.innerHTML = "";
+
+          let i = 0; // Initialize the loop counter
+          while (i < queries.length) {
+            const row = document.createElement("tr");
+            const idCell = document.createElement("td");
+            const studentCell = document.createElement("td");
+            const queryCell = document.createElement("td");
+            const statusCell = document.createElement("td");
+            const actionsCell = document.createElement("td");
+
+            idCell.textContent = queries[i].id;
+            studentCell.textContent = queries[i].student;
+            queryCell.textContent = queries[i].query;
+            statusCell.textContent = queries[i].status;
+
+            const approveButton = document.createElement("button");
+            approveButton.textContent = "Approve";
+            approveButton.classList.add("approve-button");
+            approveButton.addEventListener("click", () => {
+              eitClassAttendanceStatus(queries[i].id, "APPROVED");
+              populateClassList(); // Refresh the table after updating the status
+            });
+
+            const declineButton = document.createElement("button");
+            declineButton.textContent = "Decline";
+            declineButton.classList.add("decline-button");
+            declineButton.addEventListener("click", () => {
+              eitClassAttendanceStatus(queries[i].id, "DECLINED");
+              populateClassList(); // Refresh the table after updating the status
+            });
+
+            actionsCell.appendChild(approveButton);
+            actionsCell.appendChild(declineButton);
+
+            row.appendChild(idCell);
+            row.appendChild(studentCell);
+            row.appendChild(queryCell);
+            row.appendChild(statusCell);
+            row.appendChild(actionsCell);
+
+            classListBody.appendChild(row);
+
+            i++; // Increment the loop counter
+          }
+        }
+
+        // Call the populateClassList function to initially populate the table
+        populateClassList();
+
+    </script>
+</body>
+</html>
